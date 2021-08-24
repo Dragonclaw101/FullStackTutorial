@@ -1,12 +1,15 @@
-import React from 'react';
-import { RouteComponentProps } from '@reach/router';
+import { gql } from '@apollo/client';
+import { LAUNCH_TILE_DATA } from './launches';
 
-interface LaunchProps extends RouteComponentProps {
-
-}
-
-const Launch: React.FC<LaunchProps> = () => {
-  return <div />;
-}
-
-export default Launch;
+export const GET_LAUNCH_DETAILS = gql`
+  query LaunchDetails($launchId: ID!) {
+    launch(id: $launchId) {
+      site
+      rocket {
+        type
+      }
+      ...LaunchTile
+    }
+  }
+  ${LAUNCH_TILE_DATA}
+`;
